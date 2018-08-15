@@ -12,3 +12,14 @@ var Square = function() {
     y: 0
   }
 }
+
+Square.prototype.canDown = function(isValid) {
+  var test = {}
+  test.x = this.origin.x
+  test.y = this.origin.y + 1
+  return isValid(test, this.data)
+}
+
+Square.prototype.down = function() {
+  this.origin.y += 1
+}

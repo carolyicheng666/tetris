@@ -61,6 +61,64 @@ var Game = function() {
       }
     }
   }
+  // check point
+  var check = function(pos, x, y) {
+    if(pos.y + y < 0) {
+      return false
+    } else if(pos.y + y >= gameData.length) {
+      return false
+    } else if(pos.x + x < 0) {
+      return false
+    } else if(pos.x + x >= gameData[0].length) {
+      return false
+    } else if(gameData[pos.y + y][pos.x + x] == 1) {
+      return false
+    } else {
+      return true
+    }
+  }
+  // check data
+  var isValid = function(pos, data) {
+    for(var i=0; i<data.length; i++) {
+      for(var j=0; j<data[0].length; j++) {
+        if(data[i][j] != 0) {
+          if(!check(pos, j, i)) {
+            return false
+          }
+        }
+      }
+    }
+    return true
+  }
+  // set data
+  var setData = function() {
+    for(var i=0; i<cur.data.length; i++) {
+      for(var j=0; j<cur.data[0].length; j++) {
+        if (check(cur.origin, j, i)) {
+          gameData[cur.origin.y + i][cur.origin.x + j] = cur.data[i][j]
+        }
+      }
+    }
+  }
+  // clear data
+  var clearData = function() {
+    for(var i=0; i<cur.data.length; i++) {
+      for(var j=0; j<cur.data[0].length; j++) {
+        if (check(cur.origin, j, i)) {
+          gameData[cur.origin.y + i][cur.origin.x + j] = 0
+        }
+      }
+    }
+  }
+  // move down
+  var down = function() {
+    if (cur.canDown(isValid)) {
+      clearData()
+      cur.down()
+      setData()
+      refreshDiv(gameData, gameDivs)  
+    }
+  }
   // init
   var init = function(doms) {
     gameDiv = doms.gameDiv
@@ -69,9 +127,15 @@ var Game = function() {
     next = new Square()
     initDiv(gameDiv, gameData, gameDivs)
     initDiv(nextDiv, next.data, nextDivs)
+
+    cur.origin.x = 5
+    cur.origin.y = 10
+    setData()
+
     refreshDiv(gameData, gameDivs)
     refreshDiv(next.data, nextDivs)
   }
   // export
   this.init = init
+  this.down = down
 }
