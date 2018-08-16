@@ -116,7 +116,10 @@ var Game = function() {
       clearData()
       cur.down()
       setData()
-      refreshDiv(gameData, gameDivs)  
+      refreshDiv(gameData, gameDivs)
+      return true
+    } else {
+      return false
     }
   }
   // move left
@@ -133,6 +136,15 @@ var Game = function() {
     if (cur.canRight(isValid)) {
       clearData()
       cur.right()
+      setData()
+      refreshDiv(gameData, gameDivs)  
+    }
+  }
+  // rotate
+  var rotate = function() {
+    if (cur.canRotate(isValid)) {
+      clearData()
+      cur.rotate()
       setData()
       refreshDiv(gameData, gameDivs)  
     }
@@ -158,4 +170,8 @@ var Game = function() {
   this.down = down
   this.left = left
   this.right = right
+  this.rotate = rotate
+  this.fall = function() {
+    while(down());
+  }
 }
