@@ -119,6 +119,24 @@ var Game = function() {
       refreshDiv(gameData, gameDivs)  
     }
   }
+  // move left
+  var left = function() {
+    if (cur.canLeft(isValid)) {
+      clearData()
+      cur.left()
+      setData()
+      refreshDiv(gameData, gameDivs)  
+    }
+  }
+  // move right
+  var right = function() {
+    if (cur.canRight(isValid)) {
+      clearData()
+      cur.right()
+      setData()
+      refreshDiv(gameData, gameDivs)  
+    }
+  }
   // init
   var init = function(doms) {
     gameDiv = doms.gameDiv
@@ -138,4 +156,6 @@ var Game = function() {
   // export
   this.init = init
   this.down = down
+  this.left = left
+  this.right = right
 }
