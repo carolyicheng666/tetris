@@ -1,9 +1,9 @@
 var Square = function() {
   // square data
   this.data = [
-    [0, 2, 0, 0],
-    [2, 2, 0, 0],
-    [0, 2, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
     [0, 0, 0, 0]
   ]
   // origin
@@ -13,33 +13,6 @@ var Square = function() {
   }
   // rotate direction
   this.dir = 0
-  // enumerate rotate Array
-  this.rotates = [
-    [
-      [0, 2, 0, 0],
-      [2, 2, 0, 0],
-      [0, 2, 0, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 2, 0, 0],
-      [2, 2, 2, 0],
-      [0, 0, 0, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 2, 0, 0],
-      [0, 2, 2, 0],
-      [0, 2, 0, 0],
-      [0, 0, 0, 0]
-    ],
-    [
-      [0, 0, 0, 0],
-      [2, 2, 2, 0],
-      [0, 2, 0, 0],
-      [0, 0, 0, 0]
-    ]
-  ]
 }
 
 Square.prototype.canDown = function(isValid) {
@@ -91,8 +64,11 @@ Square.prototype.canRotate = function(isValid) {
   return isValid(this.origin, test)
 }
 
-Square.prototype.rotate = function() {
-  this.dir = (this.dir + 1) % 4
+Square.prototype.rotate = function(num) {
+  if(!num) {
+    num = 1
+  }
+  this.dir = (this.dir + num) % 4
   for(var i=0; i<this.data.length; i++) {
     for(var j=0; j<this.data[0].length; j++) {
       this.data[i][j] = this.rotates[this.dir][i][j]
