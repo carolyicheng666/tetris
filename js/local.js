@@ -1,5 +1,9 @@
 var Local = function() {
   var game
+  // time interval
+  var interval = 200
+  // timer
+  var timer = null
   // bind keyboard event
   var bindKeyEvent = function() {
     document.onkeydown = function(e) {
@@ -16,6 +20,26 @@ var Local = function() {
       }
     }
   }
+  // random type
+  var generateType = function() {
+    return Math.floor(Math.random() * 7)
+  }
+  // random rotate dir
+  var generateDir = function() {
+    return Math.floor(Math.random() * 4)
+  }
+  // move
+  var move = function() {
+    if (!game.down()) {
+      game.fixed()
+      game.clearLine()
+      if (game.checkGameOver()) {
+        stop()
+      } else {
+        game.performNext(generateType(), generateDir())
+      }
+    }
+  }
   // start
   var start = function() {
     var doms = {
@@ -25,6 +49,15 @@ var Local = function() {
     game = new Game()
     game.init(doms)
     bindKeyEvent()
+    timer = setInterval(move, interval)
+  }
+  // stop
+  var stop = function() {
+    if (timer) {
+      clearInterval(timer)
+      timer = null
+    }
+    document.onkeydown = null
   }
   // export
   this.start = start
