@@ -2,6 +2,11 @@ var Game = function() {
   // DOM
   var nextDiv
   var gameDiv
+  var timeDiv
+  var scoreDiv
+  var resultDiv
+  // score
+  var score = 0
   // game
   gameData = [
     [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -164,6 +169,7 @@ var Game = function() {
   }
   // clear line
   var clearLine = function() {
+    var line = 0
     for(var i=gameData.length-1; i>=0; i--) {
       var clear = true
       for(var j=0; j<gameData[0].length; j++) {
@@ -173,6 +179,7 @@ var Game = function() {
         }
       }
       if (clear) {
+        line += 1
         for (var m=i; m>0; m--) {
           for (var n=0; n<gameData[0].length; n++) {
             gameData[m][n] = gameData[m-1][n]
@@ -184,6 +191,7 @@ var Game = function() {
         i++
       }
     }
+    return line
   }
   // check game over
   var checkGameOver = function() {
@@ -203,18 +211,50 @@ var Game = function() {
     refreshDiv(gameData, gameDivs)
     refreshDiv(next.data, nextDivs)
   }
+  // set time
+  var setTime = function(time) {
+    timeDiv.innerHTML = time
+  }
+  // add score
+  var addScore = function(line) {
+    var s
+    switch (line) {
+      case 1:
+        s = 10
+        break;
+      case 2:
+        s = 30
+        break;
+      case 3:
+        s = 50
+        break;
+      case 4:
+        s = 100
+        break;
+      default:
+        break;
+    }
+    score += s
+    scoreDiv.innerHTML = score
+  }
+  // game over
+  var gameover = function(win) {
+    if (win) {
+      resultDiv.innerHTML = "you win"
+    } else {
+      resultDiv.innerHTML = "you lose"
+    }
+  }
   // init
-  var init = function(doms) {
+  var init = function(doms, type, dir) {
     gameDiv = doms.gameDiv
     nextDiv = doms.nextDiv
-    cur = SquareFactory.prototype.make(2, 2)
-    next = SquareFactory.prototype.make(3, 3)
+    timeDiv = doms.timeDiv
+    scoreDiv = doms.scoreDiv
+    resultDiv = doms.resultDiv
+    next = SquareFactory.prototype.make(type, dir)
     initDiv(gameDiv, gameData, gameDivs)
     initDiv(nextDiv, next.data, nextDivs)
-
-    setData()
-
-    refreshDiv(gameData, gameDivs)
     refreshDiv(next.data, nextDivs)
   }
   // export
@@ -230,4 +270,7 @@ var Game = function() {
   this.performNext = performNext
   this.clearLine = clearLine
   this.checkGameOver = checkGameOver
+  this.setTime = setTime
+  this.addScore = addScore
+  this.gameover = gameover
 }
