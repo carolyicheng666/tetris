@@ -245,6 +245,20 @@ var Game = function() {
       resultDiv.innerHTML = "you lose"
     }
   }
+  // add bottom lines
+  var addTailLines = function(lines) {
+    for (var i=0; i<gameData.length-lines.length; i++) {
+      gameData[i] = gameData[i + lines.length]
+    }
+    for (var i=0; i<lines.length; i++) {
+      gameData[gameData.length - lines.length + i] = lines[i]
+    }
+    cur.origin.y -= lines.length
+    if (cur.origin.y < 0) {
+      cur.origin.y = 0
+    }
+    refreshDiv(gameData, gameDivs)
+  }
   // init
   var init = function(doms, type, dir) {
     gameDiv = doms.gameDiv
@@ -273,4 +287,5 @@ var Game = function() {
   this.setTime = setTime
   this.addScore = addScore
   this.gameover = gameover
+  this.addTailLines = addTailLines
 }

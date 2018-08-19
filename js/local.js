@@ -32,6 +32,18 @@ var Local = function() {
   var generateDir = function() {
     return Math.floor(Math.random() * 4)
   }
+  // random bottom lines
+  var generateBottomLine = function(lineNum) {
+    var lines = []
+    for (var i=0; i<lineNum; i++) {
+      var line = []
+      for (var j=0; j<10; j++) {
+        line.push(Math.floor(Math.random() * 2))
+      }
+      lines.push(line)
+    }
+    return lines
+  }
   // time function
   var timeFunc = function() {
     timeCount += 1
@@ -39,6 +51,9 @@ var Local = function() {
       timeCount = 0
       time += 1
       game.setTime(time)
+      if (time % 10 == 0) {
+        game.addTailLines(generateBottomLine(1))
+      }
     }
   }
   // move
