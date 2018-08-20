@@ -8,12 +8,16 @@
   <link rel="stylesheet" href="./css/index.css">
 </head>
 <body>
-  <div class="game" id="game"></div>
-  <div class="next" id="next"></div>
-  <div class="info">
-    <div>已用时：<span id="time">0</span>s</div>
-    <div>已得分：<span id="score">0</span>分</div>
-    <div id="gameover"></div>
+  <h1>俄罗斯方块</h1>
+  <h2>操作方式： left->左移，right->右移，down->下移，up->旋转，space->坠落</h2>
+  <div class="square" id="local">
+    <div class="game" id="game"></div>
+    <div class="next" id="next"></div>
+    <div class="info">
+      <div>已用时：<span id="time">0</span>s</div>
+      <div>已得分：<span id="score">0</span>分</div>
+      <div id="gameover"></div>
+    </div>
   </div>
   <script src="./js/square.js"></script>
   <script src="./js/squareFactory.js"></script>
