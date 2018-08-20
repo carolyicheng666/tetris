@@ -1,11 +1,15 @@
+.square {
+  width: 400px;
+  height: 600px;
+  float: left;
+}
 .game {
   width: 200px;
   height: 400px;
   background-color: #f2faff;
   border: 1px solid blue;
-  position: absolute;
-  top: 10px;
-  left: 10px;
+  position: relative;
+  float: left;
 }
 
 .next {
@@ -13,15 +17,15 @@
   height: 80px;
   background-color: #f2faff;
   border: 1px solid blue;
-  position: absolute;
-  top: 10px;
-  left: 250px;
+  position: relative;
+  float: left;
+  margin-left: 40px;
 }
 
 .info {
-  position: absolute;
-  top: 100px;
-  left: 250px;
+  float: left;
+  margin-left: 40px;
+  margin-top: 10px;
 }
 
 .none, .current, .done {
